@@ -1,11 +1,11 @@
 const getGames = () => {
-    return Array.from(document.querySelectorAll('#games-list li'));
+    return Array.from(document.querySelectorAll('.title'));
 }
 
-const changePosition = e => {
+const changePosition = (target) => {
     const gamesPosModified = getGames();
-    const sourceIndex = gamePosOriginal.findIndex(g => g.innerHTML === e.target.innerHTML);
-    const destinationIndex = gamesPosModified.findIndex(g => g.innerHTML === e.target.innerHTML);
+    const sourceIndex = gamePosOriginal.findIndex(g => g.innerHTML === target);
+    const destinationIndex = gamesPosModified.findIndex(g => g.innerHTML === target);
     fetch(`http://localhost:8080/lists/${id}/replacement`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -18,17 +18,13 @@ const changePosition = e => {
 }
 
 const draggableGamesConfig = () => {
-    let sortableList = document.getElementById('games-list');
-    new Sortable(sortableList, {
-        animation: 150,
-        ghostClass: 'blue-background-class',
+    $('#games-list').sortable();
+
+    $("#games-list").on('sortstop', (e, ui) =>{
+        const regex = /\<p class\=\"title\"\>(.*?)\<\/p\>/
+        const target = regex.exec(ui.item[0].innerHTML)[1];
+        changePosition(target);
     });
-    
-    for(let g of gamePosOriginal){
-        g.addEventListener('dragstart', e => {
-        });
-        g.addEventListener('dragend', changePosition);
-    }
 }
 
 const id = location.href.split('?')[1].split('=')[1];

@@ -43,4 +43,18 @@ public class GameListService {
 			gameListRepository.updateBelongingPosition(listId, list.get(i).getId(), i);
 		}
 	}
+	
+	@Transactional
+	public void add(String name) {
+		GameList entity = new GameList();
+		entity.setName(name);
+		gameListRepository.save(entity);
+	}
+	
+	@Transactional(readOnly = true)
+	public Long findIdByName(String name) {
+		Long id = gameListRepository.findIdByName(name);
+		
+		return id;
+	}
 }

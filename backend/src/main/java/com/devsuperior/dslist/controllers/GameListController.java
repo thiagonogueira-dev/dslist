@@ -3,6 +3,8 @@ package com.devsuperior.dslist.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,6 +35,11 @@ public class GameListController {
 		return result;
 	}
 	
+	@PostMapping
+	public void add(@RequestBody GameListDTO body) {
+		gameListService.add(body.getName());
+	}
+	
 	@GetMapping(value = "/{listId}/games")
 	public List<GameMinDTO> findByList(@PathVariable Long listId){
 		List<GameMinDTO> result = gameService.findByList(listId);
@@ -40,9 +47,32 @@ public class GameListController {
 		return result;
 	}
 	
+	@GetMapping(value = "/{listId}/games/available")
+	public List<GameMinDTO> findByDiferentList(@PathVariable Long listId) {
+		List<GameMinDTO> result = gameService.findByDiferentList(listId);
+		
+		return result;
+	}
+	
 	@PostMapping(value = "/{listId}/replacement")
 	public void findByList(@PathVariable Long listId, @RequestBody ReplacementDTO body){
 		gameListService.move(listId, body.getSourceIndex(), body.getDestinationIndex());
+	}
+	
+	@GetMapping(value = "/{listName}/id")
+	public ResponseEntity<GameListDTO> findIdByName(@PathVariable String listName) {
+		listName = listName.replaceAll("-", " ");
+		System.out.println(listName);
+		Long id = gameListService.findIdByName(listName);
 		
+		if(id != null) {
+			GameListDTO result = new GameListDTO();
+			result.setId(id);
+			result.setName(listName);
+			
+			return ResponseEntity.ok(result);
+		}
+		
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 	}
 }

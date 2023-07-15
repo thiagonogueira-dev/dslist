@@ -42,5 +42,12 @@ public class GameService {
 		return dto;
 	}
 	
+	@Transactional(readOnly = true)
+	public List<GameMinDTO> findByDiferentList(Long listId){
+		List<GameMinProjection> result = gameRepository.searchByDiferentList(listId);
+		List<GameMinDTO> dto = result.stream().map(x -> new GameMinDTO(x)).toList();
+		
+		return dto;
+	}
 
 }

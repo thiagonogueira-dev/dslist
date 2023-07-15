@@ -20,4 +20,11 @@ public interface GameRepository extends JpaRepository<Game, Long> {
 				""")
 	List<GameMinProjection> searchByList(Long listId);
 	
+	@Query(nativeQuery = true, value = """
+			SELECT TB_GAME.ID AS id , TB_GAME.TITLE AS title, TB_GAME.IMG_URL AS imgUrl FROM TB_GAME
+			INNER JOIN TB_BELONGING ON(TB_BELONGING.GAME_ID = TB_GAME.ID)
+			WHERE TB_BELONGING.LIST_ID != :listId
+			""")
+	List<GameMinProjection> searchByDiferentList(Long listId);
+	
 }

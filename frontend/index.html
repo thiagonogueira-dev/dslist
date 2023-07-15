@@ -4,10 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Categorias</title>
+    <link rel="stylesheet" href="./assets/css/index.css">
     <script src="assets/js/index.js" defer></script>
 </head>
 <body>
     <h1>Selecione a Categoria</h1>
     <ul id="categories"></ul>
+
+    <form class="add-form disp-none">
+        <input type="text" placeholder="Digite..." required autofocus id="category">
+        <button id="submit">Salvar</button>
+    </form>
+    <button class="add" id="add"><span>+</span> Adicionar categoria</button>
 </body>
 </html>

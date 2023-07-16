@@ -62,7 +62,7 @@ public class GameListController {
 	@GetMapping(value = "/{listName}/id")
 	public ResponseEntity<GameListDTO> findIdByName(@PathVariable String listName) {
 		listName = listName.replaceAll("-", " ");
-		System.out.println(listName);
+		
 		Long id = gameListService.findIdByName(listName);
 		
 		if(id != null) {

@@ -8,10 +8,12 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 
 
 @Entity
-@Table(name = "tb_game")
+@Table(name = "tb_game",
+		uniqueConstraints = @UniqueConstraint(columnNames = { "title" }))
 public class Game {
 	
 	@Id
@@ -112,7 +114,7 @@ public class Game {
 		return shortDescription;
 	}
 
-	public void setShorDescription(String shortDescription) {
+	public void setShortDescription(String shortDescription) {
 		this.shortDescription = shortDescription;
 	}
 

@@ -14,4 +14,5 @@ public interface GameListRepository extends JpaRepository<GameList, Long> {
 	
 	@Query(nativeQuery = true, value = "SELECT id FROM tb_game_list WHERE name = :listName")
 	Long findIdByName(String listName);
+
 }

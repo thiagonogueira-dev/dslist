@@ -2,6 +2,7 @@ package com.devsuperior.dslist.services;
 
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,6 +49,16 @@ public class GameService {
 		List<GameMinDTO> dto = result.stream().map(x -> new GameMinDTO(x)).toList();
 		
 		return dto;
+	}
+	
+	@Transactional
+	public GameDTO add(GameDTO gameDTO) {
+		System.out.println("s dto: " + gameDTO.getShortDescription());
+		Game game = new Game();
+		BeanUtils.copyProperties(gameDTO, game);
+		System.out.println("service: " + game.getShortDescription());
+		GameDTO savedGame = new GameDTO(gameRepository.save(game));
+		return savedGame;
 	}
 
 }

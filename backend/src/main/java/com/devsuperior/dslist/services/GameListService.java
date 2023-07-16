@@ -54,7 +54,7 @@ public class GameListService {
 	@Transactional(readOnly = true)
 	public Long findIdByName(String name) {
 		Long id = gameListRepository.findIdByName(name);
-		
+	
 		return id;
 	}
 }

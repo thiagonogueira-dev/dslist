@@ -58,17 +58,22 @@ window.addEventListener('DOMContentLoaded', () => {
                 .then(r => r.json())
                 .then(r => {
                     const games = Array.from(r);
+                    if(games.length > 0){
+                        document.querySelectorAll('p').forEach(p => p.classList.remove('disp-none'));
+                    }
                     const gamesList = document.getElementById('games-list');
                     gamesList.innerHTML = games.map(g => `
-                        <li>    
-                            <div>
-                                <img src="${g.imgUrl}">
-                                <div class="details">
-                                    <p class="title">${g.title}</p>
-                                    <p class="year">${g.year}</p>
-                                    <p class="short-desc">${g.shortDescription}</p>
+                        <li>
+                            <a href="./game.html?id=${g.id}">   
+                                <div>
+                                    <img src="${g.imgUrl}">
+                                    <div class="details">
+                                        <p class="title">${g.title}</p>
+                                        <p class="year">${g.year}</p>
+                                        <p class="short-desc">${g.shortDescription}</p>
+                                    </div>
                                 </div>
-                            </div>
+                            </a>
                         </li>
                     `).join('');
                     gamePosOriginal = getGames();

@@ -1,5 +1,6 @@
 * {
     margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
@@ -16,6 +17,11 @@ li {
     list-style: none;
 }
 
+li a {
+    color: black;
+    text-decoration: none;
+}
+
 li div {
     margin: 15px;
     display: flex;
@@ -29,7 +35,7 @@ li div {
 
 li div img {
     width: 100px;
-    height: 120px;
+    height: 150px;
 }
 
 .details {
@@ -41,6 +47,15 @@ li div img {
     align-items: center;
     justify-content: space-around;
     text-align: center;
+}
+
+.title {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.short-desc{
+    width: 80%;
 }
 
 .add {
@@ -73,6 +88,10 @@ li div img {
     background-color: rgba(149, 248, 235, 0.288);
     border: none;
     cursor: pointer;
+}
+
+p {
+    margin-top: 10px;
 }
 
 .disp-none {
